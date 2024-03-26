@@ -5,8 +5,11 @@ inputs:
     description: "PagerDuty API token"
     required: true
   schedule-id:
-    description: "ID of on-call schedule to look up"
-    required: true
+    description: "Schedule ID of on-call schedule to look up"
+    required: false
+  escalation-policy-id:
+    description: "Escalation policy ID of on-call schedule to look up"
+    required: false
   start-date:
     description: "Start date of on-call to query (in ISO8601)"
     required: false
@@ -15,9 +18,11 @@ inputs:
     required: false
 outputs:
   person:
-    description: "The person who's on call"
+    description: "Name of person on call at escalation level 1"
+  userId:
+    description: "PagerDuty user ID of person on call at escalation level 1"
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.js"
 branding:
   icon: "bell"
