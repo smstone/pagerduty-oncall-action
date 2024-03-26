@@ -1,11 +1,11 @@
 # PagerDuty On-call Action
 
-A GitHub Action to find the next person on call through PagerDuty.
+A GitHub Action to find who is on call through PagerDuty.
 
 ## Usage
 
 ```yml
-name: Find next person on call
+name: Find who is on call for a given schedule or escalation policy.
 on:
   schedule:
     - cron: 0 8 * * 1
@@ -18,8 +18,10 @@ jobs:
       uses: mxie/pagerduty-oncall-action@main    # replace `main` with release tag
       with:
         token: ${{ secrets.PAGERDUTY_TOKEN }}
-        schedule-id: ABCDEFG
-    - run: echo ${{ steps.pagerduty.outputs.person }} is on call
+        on-call-type: schedule
+        on-call-type-id: ABCDEFG
+    - name: Print user who is on call at escalation level 1
+      run: echo ${{ steps.pagerduty.outputs.person }} is on call
 ```
 
 See [action.yml](./action.yml) for accepted inputs.
