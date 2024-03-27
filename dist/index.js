@@ -28701,11 +28701,11 @@ async function run() {
   };
 
   if (scheduleId) {
-    params["escalation_policy_ids[]"] = scheduleId
+    params["schedule_ids[]"] = scheduleId
   }
 
   if (escalationPolicyId) {
-    params["schedule_ids[]"] = escalationPolicyId
+    params["escalation_policy_ids[]"] = escalationPolicyId
   }
 
   const queryParams = Object.entries(params)
