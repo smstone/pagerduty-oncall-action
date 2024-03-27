@@ -18,7 +18,7 @@ jobs:
       uses: mxie/pagerduty-oncall-action@main    # replace `main` with release tag
       with:
         token: ${{ secrets.PAGERDUTY_TOKEN }}
-        schedule-id: ABCDEFG
+        schedule-id: ABCDEFG # Either set this `schedule-id` or `escalation-policy-id`, not both.
         escalation-policy-id: ABCDEFG
     - name: Print user who is on call at escalation level 1
       run: echo ${{ steps.pagerduty.outputs.person }} is on call

@@ -20,6 +20,10 @@ async function run() {
     until: endDate,
   };
 
+  if (scheduleId && escalationPolicyId) {
+    core.setFailed("❌ Both schedule-id and escalation-policy-id are set. Please only set one.");
+  }
+
   if (scheduleId) {
     params["schedule_ids[]"] = scheduleId
   }
