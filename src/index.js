@@ -32,12 +32,14 @@ async function run() {
     .map(([k, v]) => `${k}=${v}`)
     .join("&");
 
+  core.info(`query params: ${JSON.stringify(queryParams)}`);
+
   pdClient
     .get(`/oncalls?${queryParams}`)
     .then(({ resource }) => {
       // `resource` should be a list of oncall entries
       if (resource.length > 0) {
-        core.debug(`Oncalls found: ${JSON.stringify(resource)}`);
+        core.info(`Oncalls found: ${JSON.stringify(resource)}`);
 
         // Variables for user on call at escalation level 1
         let person;
