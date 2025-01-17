@@ -28737,7 +28737,7 @@ async function run() {
           if (typeof name !== "undefined" && typeof pdUserId !== "undefined" && typeof escalationLevel !== "undefined") {
             peopleOnCall.push({'name': name, 'userId': pdUserId, 'escalationLevel': escalationLevel})
             if (escalationLevel == 1) {
-              peopleOnCallEscalationLevelOne.push({'name': name, 'userId': pdUserId, 'escalationLevel': escalationLevel})
+              peopleOnCallEscalationLevelOne.push(pdUserId)
             }
           } else {
             core.setFailed("❓ Could not parse on-call entry");
@@ -28747,7 +28747,7 @@ async function run() {
         if (peopleOnCallEscalationLevelOne.length == 0) {
           core.setFailed(`❓ No one is set to escalation level 1. Exiting.`);
         } else {
-          core.setOutput("escalationLevelOneOnCallers", peopleOnCallEscalationLevelOne);
+          core.setOutput("escalationLevelOneOnCallerIds", peopleOnCallEscalationLevelOne);
         }
 
         let peopleOnCallSorted = peopleOnCall.sort((a, b) => a.escalationLevel - b.escalationLevel);
