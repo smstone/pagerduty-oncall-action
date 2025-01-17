@@ -28729,27 +28729,26 @@ async function run() {
         let foundEscalationLevelOne = false;
         // Variable to display all people on call at varying escalation levels
         let peopleOnCall = []
+        let peopleOnCallEscalationLevelOne = []
         for (let i = 0; i < resource.length; i++) {
           let name = resource[i]["user"]["summary"];
           let pdUserId = resource[i]["user"]["id"];
           let escalationLevel = resource[i]["escalation_level"];
           if (typeof name !== "undefined" && typeof pdUserId !== "undefined" && typeof escalationLevel !== "undefined") {
             peopleOnCall.push({'name': name, 'userId': pdUserId, 'escalationLevel': escalationLevel})
+            if (escalationLevel == 1) {
+              peopleOnCallEscalationLevelOne.push(`"${pdUserId}"`);
+            }
           } else {
             core.setFailed("❓ Could not parse on-call entry");
           }
-          if (escalationLevel == 1 && foundEscalationLevelOne == false) {
-            person = name
-            userId = pdUserId
-            foundEscalationLevelOne = true
-          }
-        }
-        if (foundEscalationLevelOne == false) {
-          core.setFailed(`❓ No one is set to escalation level 1. Exiting.`);
         }
 
-        core.setOutput("person", person);
-        core.setOutput("userId", userId);
+        if (peopleOnCallEscalationLevelOne.length == 0) {
+          core.setFailed(`❓ No one is set to escalation level 1. Exiting.`);
+        } else {
+          core.setOutput("escalationLevelOneOnCallerIds", peopleOnCallEscalationLevelOne);
+        }
 
         let peopleOnCallSorted = peopleOnCall.sort((a, b) => a.escalationLevel - b.escalationLevel);
         core.info(`🎉 List of people on-call at each escalation level: `);
