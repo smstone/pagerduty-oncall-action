@@ -57,7 +57,7 @@ async function run() {
           if (typeof name !== "undefined" && typeof pdUserId !== "undefined" && typeof escalationLevel !== "undefined") {
             peopleOnCall.push({'name': name, 'userId': pdUserId, 'escalationLevel': escalationLevel})
             if (escalationLevel == 1) {
-              peopleOnCallEscalationLevelOne.push("${pdUserId}")
+              peopleOnCallEscalationLevelOne.push(`"${pdUserId}"`);
             }
           } else {
             core.setFailed("❓ Could not parse on-call entry");
